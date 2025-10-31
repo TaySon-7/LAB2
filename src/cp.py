@@ -13,9 +13,9 @@ def cp(command_line: list) -> str:
     if command_line[0] == '-r':
         flag = True
         command_line.pop(0)
-    src = command_line[0]
-    dst = command_line[1]
     if len(command_line) == 2:
+        src = command_line[0]
+        dst = command_line[1]
         if flag:
             try:
                 os.path.isdir(dst)
