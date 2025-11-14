@@ -1,6 +1,6 @@
 import os
 import shutil
-from src.undo import undo_history
+from src.advanced_commands.undo import undo_history
 
 
 def cp(command_line: list) -> str:
@@ -21,7 +21,7 @@ def cp(command_line: list) -> str:
                 os.path.isdir(dst)
                 dst = str(os.path.join(dst, os.path.basename(src)))
                 shutil.copytree(src, dst, dirs_exist_ok=True)
-                undo_history(f'cp {flag} {os.path.abspath(dst)}')
+                undo_history(f'cp {flag} "{os.path.abspath(dst)}"')
                 return 'Success'
             except NotADirectoryError:
                 print('Для рекурсивного копирования каталога один путь не каталог')
@@ -29,11 +29,15 @@ def cp(command_line: list) -> str:
         else:
             try:
                 shutil.copy(command_line[0], command_line[1])
-                undo_history(f'cp {flag} {os.path.abspath(dst)}')
+                dr, fl = os.path.split(src)
+                undo_history(f'cp {flag} "{os.path.join(os.path.abspath(dst), fl)}"')
                 return 'Success'
             except IsADirectoryError:
                 print('Каталог нельзя копировать нерекурсивно')
                 return 'Каталог нельзя копировать нерекурсивно'
+            except FileNotFoundError:
+                print('Файл не найден')
+                return 'Файл не найден'
     else:
         print("Должны быть введены стартовый путь и путь назначения")
         return "Должны быть введены стартовый путь и путь назначения"

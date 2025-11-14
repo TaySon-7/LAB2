@@ -1,20 +1,20 @@
 import sys
-from src.ls import ls
-from src.cd import cd
-from src.cat import cat
-from src.cp import cp
-from src.mv import mv
-from src.rm import rm
-from src.logger import setup_log
+from src.base_commands.ls import ls
+from src.base_commands.cd import cd
+from src.base_commands.cat import cat
+from src.base_commands.cp import cp
+from src.base_commands.mv import mv
+from src.base_commands.rm import rm
+from src.base.logger import setup_log
 import os
 import shlex
-from src.unzip import unzip_folder
-from src.zp import zip_folder
-from src.grep import grep
-from src.tar import tar_folder
-from src.untar import untar_folder
-from src.history import history
-from src.undo import undo
+from src.archive_commands.unzip import unzip_folder
+from src.archive_commands.zp import zip_folder
+from src.advanced_commands.grep import grep
+from src.archive_commands.tar import tar_folder
+from src.archive_commands.untar import untar_folder
+from src.advanced_commands.history import history
+from src.advanced_commands.undo import undo
 
 
 def main() -> None:
@@ -36,7 +36,7 @@ def main() -> None:
                 history(command_log, mode='history')
             else:
                 logger.error(res)
-        if key == 'cd':
+        elif key == 'cd':
             logger.info(command_log)
             res = cd(shlex.split(" ".join(command[1:])))
             if res == 'Success':
@@ -44,7 +44,7 @@ def main() -> None:
                 history(command_log, mode='history')
             else:
                 logger.error(res)
-        if key == 'cat':
+        elif key == 'cat':
             logger.info(command_log)
             res = cat(shlex.split(" ".join(command[1:])))
             if res == 'Success':
@@ -52,7 +52,7 @@ def main() -> None:
                 history(command_log, mode='history')
             else:
                 logger.error(res)
-        if key == 'cp':
+        elif key == 'cp':
             logger.info(command_log)
             res = cp(shlex.split(" ".join(command[1:])))
             if res == 'Success':
@@ -60,7 +60,7 @@ def main() -> None:
                 history(command_log, mode='history')
             else:
                 logger.error(res)
-        if key == 'mv':
+        elif key == 'mv':
             logger.info(command_log)
             res = mv(shlex.split(" ".join(command[1:])))
             if res == 'Success':
@@ -68,7 +68,7 @@ def main() -> None:
                 history(command_log, mode='history')
             else:
                 logger.error(res)
-        if key == 'rm':
+        elif key == 'rm':
             logger.info(command_log)
             res = rm(shlex.split(" ".join(command[1:])))
             if res == 'Success':
@@ -76,7 +76,7 @@ def main() -> None:
                 history(command_log, mode='history')
             else:
                 logger.error(res)
-        if key == 'zip':
+        elif key == 'zip':
             logger.info(command_log)
             res = zip_folder(shlex.split(" ".join(command[1:])), current_dir=current_dir)
             if res == 'Success':
@@ -84,7 +84,7 @@ def main() -> None:
                 history(command_log, mode='history')
             else:
                 logger.error(res)
-        if key == 'unzip':
+        elif key == 'unzip':
             logger.info(command_log)
             res = unzip_folder(shlex.split(" ".join(command[1:])), current_dir=current_dir)
             if res == 'Success':
@@ -92,7 +92,7 @@ def main() -> None:
                 history(command_log, mode='history')
             else:
                 logger.error(res)
-        if key == 'tar':
+        elif key == 'tar':
             logger.info(command_log)
             res = tar_folder(shlex.split(" ".join(command[1:])), current_dir=current_dir)
             if res == 'Success':
@@ -100,7 +100,7 @@ def main() -> None:
                 history(command_log, mode='history')
             else:
                 logger.error(res)
-        if key == 'untar':
+        elif key == 'untar':
             logger.info(command_log)
             res = untar_folder(shlex.split(" ".join(command[1:])), current_dir=current_dir)
             if res == 'Success':
@@ -108,7 +108,7 @@ def main() -> None:
                 history(command_log, mode='history')
             else:
                 logger.error(res)
-        if key == 'grep':
+        elif key == 'grep':
             logger.info(command_log)
             res = grep(shlex.split(" ".join(command[1:])))
             if res == 'Success':
@@ -116,11 +116,11 @@ def main() -> None:
                 history(command_log, mode='history')
             else:
                 logger.error(res)
-        if key == 'history':
+        elif key == 'history':
             logger.info(command_log)
             history('', mode='command')
             logger.info('success')
-        if key == 'undo':
+        elif key == 'undo':
             logger.info(command_log)
             res  = undo()
             if res == 'Success':
@@ -128,8 +128,10 @@ def main() -> None:
                 history(command_log, mode='history')
             else:
                 logger.error(res)
-        if key == 'exit' or key == 'q' or key == 'quit':
+        elif key == 'exit' or key == 'q' or key == 'quit':
             break
+        else:
+            print('Введена несуществующая команда')
     print('До встречи')
 if __name__ == "__main__":
     main()

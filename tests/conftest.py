@@ -12,9 +12,6 @@ from unittest.mock import Mock
 import pytest
 from pytest_mock import MockerFixture
 
-from src.main import main
-
-
 """
 Fixture — это функция, которая подготавливает контекст для теста:
 создаёт объект, настраивает окружение, делает моки, создает временные файлы и т.п.

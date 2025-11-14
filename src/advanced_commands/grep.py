@@ -55,7 +55,7 @@ def grep(command_line: list) -> str:
             if arg == '-r':
                 flagr = True
             if arg == '-i':
-                flagi = False
+                flagi = True
             command_line.pop(0)
         else:
             break
@@ -63,9 +63,9 @@ def grep(command_line: list) -> str:
     command_line.pop(0)
     if flagi:
         reg = re.compile(pattern, re.IGNORECASE)
+        print(32)
     else:
         reg = re.compile(pattern)
-    print(type(reg))
     for dir_file in command_line:
         if os.path.isdir(dir_file) and flagr:
             search_dir(dir_file, reg)

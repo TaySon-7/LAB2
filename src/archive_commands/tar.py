@@ -2,19 +2,17 @@ import os.path
 import shutil
 
 
-def zip_folder(command_line: list, current_dir: str) -> str:
+def tar_folder(command_line, current_dir):
     """
-    Функция создает архив из папки с расширением zip
-    :param command_line: список из папок к архивации
-    :param current_dir: строка с путём текущей директории
+    Архивирует папки с расширением tar
+    :param command_line: список, где находятся файлы для архивации
+    :param current_dir: строка, в которой записана текущая директория
     :return: Возвращает результат выполнения функции: успех или ошибка
     """
     if command_line:
         for file in command_line:
-            print(file, current_dir)
             try:
-                shutil.make_archive(str(os.path.join(current_dir, file)), 'zip', str(os.path.join(current_dir, file)))
-                print('nice')
+                shutil.make_archive(str(os.path.join(current_dir, file)), 'tar', str(os.path.join(current_dir, file)))
             except FileNotFoundError:
                 print('Каталог не найден')
                 return 'Каталог не найден'

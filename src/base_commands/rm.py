@@ -1,7 +1,7 @@
 import os
 import shutil
-from src.undo import undo_history
-from src.constants import TRASH_DIR
+from src.advanced_commands.undo import undo_history
+from src.base.constants import TRASH_DIR
 
 
 def rm(command_line: list) -> str:
@@ -28,7 +28,7 @@ def rm(command_line: list) -> str:
                     fl = input()
                     if fl == 'y' or fl == 'Y':
                         shutil.move(file, trash)
-                        undo_history(f'rm {flag} {os.path.abspath(str(os.path.join(trash, file)))} {os.path.abspath(file)}')
+                        undo_history(f'rm {flag} "{os.path.abspath(str(os.path.join(trash, file)))}" "{os.path.abspath(file)}"')
                         return 'Success'
                     elif fl == 'n' or fl == 'N':
                         return 'Success'
@@ -45,7 +45,7 @@ def rm(command_line: list) -> str:
             else:
                 try:
                     shutil.move(file, trash)
-                    undo_history(f'rm {flag} {os.path.abspath(str(os.path.join(trash, file)))} {os.path.abspath(file)}')
+                    undo_history(f'rm {flag} "{os.path.abspath(str(os.path.join(trash, file)))}" "{os.path.abspath(file)}"')
                     return 'Success'
                 except FileNotFoundError:
                     print('Такой файл не найден')

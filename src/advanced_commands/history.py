@@ -1,5 +1,7 @@
 from pathlib import Path
-from src.constants import HISTORY_FILE
+from src.base.constants import HISTORY_FILE
+from src.base.constants import MAX_VERSTAPPEN
+
 
 def history(command: str, mode: str) -> None:
     """
@@ -8,17 +10,16 @@ def history(command: str, mode: str) -> None:
     :param mode: запись истории или вывод её пользователю
     :return:
     """
-    mx = 33
     if mode == 'history':
         with open(Path(HISTORY_FILE), 'r') as f:
             ln = list(f.readlines())
             new_ln = []
-            if len(ln) == mx:
+            if len(ln) == MAX_VERSTAPPEN:
                 ln.pop(0)
                 for line in range(len(ln)):
                     com = " ".join(ln[line].split()[1:])
                     new_ln.append(str(line + 1) + ' ' + com)
-                new_ln.append(str(mx) + ' ' + command)
+                new_ln.append(str(MAX_VERSTAPPEN) + ' ' + command)
             else:
                 new_ln = [line.replace('\n', '') for line in ln]
                 new_ln.append(str(len(ln) + 1) + ' ' + command)

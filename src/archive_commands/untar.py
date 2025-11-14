@@ -3,18 +3,18 @@ import shutil
 from shutil import ReadError
 
 
-def unzip_folder(command_line: list, current_dir: str) -> str:
+def untar_folder(command_line: list, current_dir: str) -> str:
     """
-    Функция разархивирует файлы с расширением zip
-    :param command_line: список файлов для разархивирования
-    :param current_dir: строка, где указан путь до текущей директории
+     Функция разархивирует файлы с расширением tar
+    :param command_line: список, где находятся файлы для разархивации
+    :param current_dir: строка, где указан путь текущей директории
     :return: Возвращает результат выполнения функции: успех или ошибка
     """
     if command_line:
         try:
             for file in command_line:
                 print(os.path.join(current_dir, file),current_dir )
-                shutil.unpack_archive(filename=str(os.path.join(current_dir, file)), extract_dir=current_dir, format='zip')
+                shutil.unpack_archive(filename=str(os.path.join(current_dir, file)), extract_dir=current_dir, format='tar')
                 print('1')
         except FileNotFoundError:
             print('Каталог не найден')
@@ -23,8 +23,8 @@ def unzip_folder(command_line: list, current_dir: str) -> str:
             print('Передан каталог, не файл')
             return 'Передан каталог, не файл'
         except ReadError:
-            print('Передан не zip файл')
-            return 'Передан не zip файл'
+            print('Передан не tar файл')
+            return 'Передан не tar файл'
         return 'Success'
     else:
         print('Недостаточно аргументов для команды')

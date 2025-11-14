@@ -1,6 +1,6 @@
 import shutil
 import os
-from src.undo import undo_history
+from src.advanced_commands.undo import undo_history
 
 
 def mv(command_line: list) -> str:
@@ -29,7 +29,7 @@ def mv(command_line: list) -> str:
                 print('Первого файла не существует')
                 return 'Первого файла не существует'
         if res:
-            undo_history(f'mv {res} {un_src} {os.path.abspath(dst)}')
+            undo_history(f'mv {res} "{un_src}" "{os.path.abspath(dst)}"')
             return 'Success'
         else:
             return 'Ошибка'

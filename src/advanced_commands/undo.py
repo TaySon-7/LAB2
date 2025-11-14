@@ -1,6 +1,8 @@
-from src.constants import UNDO_HISTORY_FILE
+from src.base.constants import UNDO_HISTORY_FILE
 import os
 import shutil
+import shlex
+
 
 def undo() -> str:
     """
@@ -13,7 +15,7 @@ def undo() -> str:
         if len(ln) == 0:
             print('Не было команд для их отмены')
             return 'Не было команд для их отмены'
-        line = ln[-1].split()
+        line = shlex.split(ln[-1])
         ln.pop(-1)
         if line[1] == 'cp':
             try:
@@ -27,8 +29,11 @@ def undo() -> str:
                 print('файл не найден')
                 return 'файл не найден'
         elif line[1] == 'rm':
+            dr, file = os.path.split(line[4])
+            print(line[3], dr)
             try:
                 dr, file = os.path.split(line[4])
+                print(line[3], dr)
                 shutil.move(line[3], dr)
                 res = True
             except FileNotFoundError:
