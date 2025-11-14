@@ -78,10 +78,7 @@ class TestMain:
             mock_history.return_value = 'Success'
             mock_tar.return_value = 'Success'
             mock_cwd.return_value = '/test/dir'
-
             main()
-
-            # Проверяем что все команды были вызваны
             assert mock_cp.called
             assert mock_rm.called
             assert mock_cat.called
@@ -90,8 +87,6 @@ class TestMain:
             assert mock_undo.called
             assert mock_history.called
             assert mock_tar.called
-
-            # Проверяем что history вызывалась для каждой успешной команды
             assert mock_history.call_count == 8
             mock_history.assert_any_call('cp test1.txt /dirtest', mode='history')
             mock_history.assert_any_call('rm test1.txt', mode='history')
